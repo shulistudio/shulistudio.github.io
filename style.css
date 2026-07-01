@@ -25,6 +25,8 @@ a {
   text-decoration: none;
 }
 
+/* Header */
+
 .site-header {
   width: 100%;
   background: rgba(247, 241, 234, 0.95);
@@ -38,14 +40,14 @@ a {
 .header-inner {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px 28px;
+  padding: 22px 28px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .logo {
-  width: 130px;
+  width: 160px;
   height: auto;
   object-fit: contain;
 }
@@ -78,6 +80,8 @@ a {
 .nav a:hover::after {
   width: 100%;
 }
+
+/* Hero */
 
 .hero {
   max-width: 1200px;
@@ -142,6 +146,8 @@ a {
   border-radius: 200px 200px 12px 12px;
 }
 
+/* General Sections */
+
 .section {
   max-width: 1200px;
   margin: 0 auto;
@@ -171,6 +177,8 @@ a {
   color: #5d554d;
 }
 
+/* About */
+
 .about-section {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
@@ -184,6 +192,8 @@ a {
   font-size: 18px;
   color: #4c443d;
 }
+
+/* Collection */
 
 .collection-section {
   border-bottom: 1px solid #e6ddd2;
@@ -209,15 +219,17 @@ a {
   box-shadow: 0 22px 52px rgba(88, 65, 45, 0.18);
 }
 
+/* Story */
+
 .story-section {
   border-bottom: 1px solid #e6ddd2;
 }
 
 .story-card {
   background: #efe6dc;
-  padding: 70px;
+  padding: 76px 72px;
   border-radius: 28px;
-  max-width: 860px;
+  max-width: 960px;
   margin: 0 auto;
   text-align: center;
 }
@@ -226,14 +238,42 @@ a {
   font-size: clamp(30px, 4vw, 54px);
   line-height: 1.1;
   font-weight: 400;
-  margin-bottom: 28px;
+  margin-bottom: 36px;
 }
 
-.story-card p {
-  font-size: 18px;
-  color: #4c443d;
-  margin-bottom: 18px;
+.story-text {
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: left;
 }
+
+.story-text p {
+  font-size: 17px;
+  color: #4c443d;
+  margin-bottom: 20px;
+  line-height: 1.85;
+}
+
+.story-cn {
+  font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  color: #514940;
+  letter-spacing: 0.02em;
+}
+
+.story-cn.first-cn {
+  margin-top: 44px;
+  padding-top: 36px;
+  border-top: 1px solid #d9cbbd;
+}
+
+/* 如果你没有在 HTML 里加 first-cn，也可以用这一条自动给第一段中文加分隔线 */
+.story-text p:nth-of-type(6) {
+  margin-top: 44px;
+  padding-top: 36px;
+  border-top: 1px solid #d9cbbd;
+}
+
+/* Contact */
 
 .contact-section {
   text-align: center;
@@ -260,6 +300,8 @@ a {
   color: #f7f1ea;
 }
 
+/* Footer */
+
 .site-footer {
   border-top: 1px solid #e6ddd2;
   padding: 48px 28px;
@@ -274,10 +316,16 @@ a {
   opacity: 0.9;
 }
 
+/* Tablet */
+
 @media (max-width: 900px) {
   .header-inner {
     flex-direction: column;
     gap: 18px;
+  }
+
+  .logo {
+    width: 145px;
   }
 
   .nav {
@@ -312,9 +360,15 @@ a {
   }
 
   .story-card {
-    padding: 46px 28px;
+    padding: 54px 36px;
+  }
+
+  .story-text p {
+    font-size: 16.5px;
   }
 }
+
+/* Mobile */
 
 @media (max-width: 600px) {
   .header-inner {
@@ -322,7 +376,7 @@ a {
   }
 
   .logo {
-    width: 105px;
+    width: 125px;
   }
 
   .nav {
@@ -351,7 +405,23 @@ a {
   }
 
   .story-card {
+    padding: 42px 24px;
     border-radius: 20px;
+  }
+
+  .story-card h2 {
+    margin-bottom: 28px;
+  }
+
+  .story-text p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 18px;
+  }
+
+  .story-text p:nth-of-type(6) {
+    margin-top: 34px;
+    padding-top: 28px;
   }
 
   .contact-links {
