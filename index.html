@@ -291,19 +291,47 @@ const allImages = document.querySelectorAll(
 <script>
   const instantNavLinks = document.querySelectorAll('.nav-link[href^="#"], .button[href^="#"]');
 
+  function revealSection(targetSection) {
+    targetSection.classList.remove("section-reveal");
+
+    void targetSection.offsetWidth;
+
+    targetSection.classList.add("section-reveal");
+  }
+
   instantNavLinks.forEach(function (link) {
-    link.addEventListener("click", function () {
+    link.addEventListener("click", function (event) {
       const href = link.getAttribute("href");
       const targetSection = document.querySelector(href);
 
       if (!targetSection) return;
 
-      targetSection.classList.remove("section-reveal");
+      event.preventDefault();
 
-      setTimeout(function () {
-        targetSection.classList.add("section-reveal");
-      }, 30);
+      const headerHeight = document.querySelector(".site-header").offsetHeight;
+      const targetY = targetSection.offsetTop - headerHeight - 16;
+
+      window.scrollTo({
+        top: targetY,
+        behavior: "auto"
+      });
+
+      revealSection(targetSection);
+
+      history.pushState(null, "", href);
     });
+  });
+
+  window.addEventListener("load", function () {
+    if (window.location.hash) {
+      const targetSection = document.querySelector(window.location.hash);
+
+      if (targetSection) {
+        setTimeout(function () {
+          revealSection(targetSection);
+        }, 300);
+      }
+    }
   });
 </script>
 
