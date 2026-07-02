@@ -300,15 +300,28 @@ const allImages = document.querySelectorAll(
       数字越大，目标板块越往上；
       数字越小，目标板块越往下。
     */
-    let positionAdjust = -55;
+let positionAdjust = -55;
 
-    if (
-      targetSection.id === "collection" ||
-      targetSection.id === "story" ||
-      targetSection.id === "contact"
-    ) {
-      positionAdjust = 110;
-    }
+if (
+  targetSection.id === "collection" ||
+  targetSection.id === "story" ||
+  targetSection.id === "contact"
+) {
+  positionAdjust = 110;
+}
+
+/* 只调整手机端，不影响电脑端 */
+if (window.innerWidth <= 600) {
+  positionAdjust = -105;
+
+  if (
+    targetSection.id === "collection" ||
+    targetSection.id === "story" ||
+    targetSection.id === "contact"
+  ) {
+    positionAdjust = 35;
+  }
+}
 
     return targetSection.offsetTop - headerHeight + positionAdjust;
   }
