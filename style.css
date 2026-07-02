@@ -5,7 +5,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scrollbar-gutter: stable;
 }
 
@@ -780,6 +779,23 @@ a {
   from {
     opacity: 0;
     transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 点击导航到达区域后的轻微浮现效果 */
+.section-reveal {
+  animation: sectionReveal 1.4s ease forwards;
+}
+
+@keyframes sectionReveal {
+  from {
+    opacity: 0.55;
+    transform: translateY(5px);
   }
 
   to {
