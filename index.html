@@ -29,17 +29,17 @@
       </a>
 
 <nav class="nav">
-  <a href="#about">About</a>
-  <a href="#collection">Collection</a>
-  <a href="#story">Story</a>
-  <a href="#contact">Contact</a>
-  <a href="havefun.html">HaveFun</a>
-  <a href="moment.html">Moment</a>
+  <a href="#about" class="nav-link">About</a>
+  <a href="#collection" class="nav-link">Collection</a>
+  <a href="#story" class="nav-link">Story</a>
+  <a href="#contact" class="nav-link">Contact</a>
+  <a href="havefun.html" class="nav-link">HaveFun</a>
+  <a href="moment.html" class="nav-link">Moment</a>
 </nav>
     </div>
   </header>
 
-  <main>
+<main class="page-fade">
     <section class="hero">
       <div class="hero-text">
         <p class="eyebrow">Handcraft Studio</p>
@@ -239,42 +239,79 @@
     <img src="image/logo-1.png" alt="Shuli Studio Logo" class="footer-logo" />
     <p>© 2026 Shuli Studio · 述礼 · Handcrafted with care.</p>  </footer>
 
-<div class="image-lightbox" id="imageLightbox">
-  <button class="lightbox-close" onclick="closeLightbox()">×</button>
-  <img src="" alt="Full size product image" id="lightboxImage" />
+<div id="imageModal" class="image-modal">
+  <span class="image-modal-close">&times;</span>
+  <img id="modalImage" src="" alt="Preview image">
 </div>
 
 <script>
-  const galleryImages = document.querySelectorAll(".gallery img");
-  const lightbox = document.getElementById("imageLightbox");
-  const lightboxImage = document.getElementById("lightboxImage");
+  const imageModal = document.getElementById("imageModal");
+  const modalImage = document.getElementById("modalImage");
+  const imageModalClose = document.querySelector(".image-modal-close");
 
-  galleryImages.forEach(function (image) {
-    image.addEventListener("click", function () {
-      lightboxImage.src = image.src;
-      lightboxImage.alt = image.alt;
-      lightbox.style.display = "flex";
+const allImages = document.querySelectorAll(
+  ".gallery img, .gallery-grid img"
+);
+
+  allImages.forEach(function (img) {
+    img.classList.add("clickable-image");
+
+    img.addEventListener("click", function () {
+      modalImage.src = img.src;
+      modalImage.alt = img.alt || "Preview image";
+      imageModal.classList.add("show");
       document.body.style.overflow = "hidden";
     });
   });
 
-  function closeLightbox() {
-    lightbox.style.display = "none";
-    lightboxImage.src = "";
+  function closeImageModal() {
+    imageModal.classList.remove("show");
     document.body.style.overflow = "";
   }
 
-  lightbox.addEventListener("click", function (event) {
-    if (event.target === lightbox) {
-      closeLightbox();
+  imageModalClose.addEventListener("click", closeImageModal);
+
+  imageModal.addEventListener("click", function (event) {
+    if (event.target === imageModal) {
+      closeImageModal();
     }
   });
 
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
-      closeLightbox();
+      closeImageModal();
     }
   });
+</script>
+
+<script>
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".nav-link");
+
+  function updateActiveNav() {
+    let currentSection = "about";
+
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+
+      if (window.scrollY >= sectionTop - 160) {
+        currentSection = section.getAttribute("id");
+      }
+    });
+
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+
+      const href = link.getAttribute("href");
+
+      if (href === "#" + currentSection) {
+        link.classList.add("active");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", updateActiveNav);
+  window.addEventListener("load", updateActiveNav);
 </script>
 </body>
 </html>
