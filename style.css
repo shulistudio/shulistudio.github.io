@@ -8,6 +8,20 @@ html {
   scrollbar-gutter: stable;
 }
 
+html {
+  scroll-behavior: auto;
+}
+
+#about {
+  scroll-margin-top: 150px;
+}
+
+#collection,
+#story,
+#contact {
+  scroll-margin-top: 30px;
+}
+
 body {
   font-family: Georgia, "Times New Roman", serif;
   background: #f7f1ea;
@@ -555,6 +569,16 @@ a {
     padding: 18px 20px;
   }
 
+#about {
+  scroll-margin-top: 170px;
+}
+
+#collection,
+#story,
+#contact {
+  scroll-margin-top: 70px;
+}
+
   .logo {
     width: 125px;
   }
@@ -768,33 +792,28 @@ a {
   cursor: zoom-in;
 }
 
-/* 点击导航到达区域后的轻微浮现效果 */
-/* 首页内部点击导航时的柔和切换 */
+/* 页面进入 / 首页内部点击导航时的整体淡入淡出 */
 .page-fade {
   opacity: 0;
-  animation: pageFadeIn 1.4s ease forwards;
-}
-
-.page-fade.is-switching {
-  opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 0.38s ease, transform 0.38s ease;
+  transform: translateY(8px);
+  transition: opacity 2.1s ease, transform 2.1s ease;
 }
 
 .page-fade.is-visible {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.75s ease, transform 0.75s ease;
 }
 
-@keyframes pageFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
+/* 点击 About / Collection / Story / Contact 时的淡出 */
+.page-fade.is-switching {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* 点击 About / Collection / Story / Contact 后的重新显现 */
+.page-fade.is-section-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1.15s ease, transform 1.15s ease;
 }
