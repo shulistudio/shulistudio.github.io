@@ -773,7 +773,7 @@ a {
 .page-fade {
   opacity: 0;
   transform: translateY(8px);
-  animation: pageFadeIn 1.4s ease forwards;
+  animation: pageFadeIn 1.8s ease forwards;
 }
 
 @keyframes pageFadeIn {
