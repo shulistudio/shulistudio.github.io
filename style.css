@@ -817,3 +817,28 @@ a {
   transform: translateY(0);
   transition: opacity 1.15s ease, transform 1.15s ease;
 }
+
+@media (max-width: 600px) {
+  .page-hero {
+    padding: 20px 20px 18px;
+  }
+
+  .page-hero h1 {
+    margin-bottom: 16px;
+  }
+
+  .page-hero p:last-child {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .havefun-section,
+  .moment-section {
+    padding-top: 24px;
+  }
+
+  .gallery-grid,
+  .moment-section .gallery-grid {
+    margin-top: 0;
+  }
+}
