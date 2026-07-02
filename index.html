@@ -209,11 +209,11 @@
 
 <script>
   function showWechat() {
-    document.getElementById("wechatPopup").style.display = "flex";
+    document.getElementById("wechatPopup").classList.add("show");
   }
 
   function closeWechat() {
-    document.getElementById("wechatPopup").style.display = "none";
+    document.getElementById("wechatPopup").classList.remove("show");
   }
 
   function copyWechat() {
