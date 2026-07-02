@@ -212,6 +212,7 @@ a {
   background: #efe6dc;
   box-shadow: 0 14px 38px rgba(88, 65, 45, 0.12);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
+  cursor: pointer;
 }
 
 .gallery img:hover {
@@ -266,11 +267,46 @@ a {
   border-top: 1px solid #d9cbbd;
 }
 
-/* 如果你没有在 HTML 里加 first-cn，也可以用这一条自动给第一段中文加分隔线 */
-.story-text p:nth-of-type(6) {
-  margin-top: 44px;
-  padding-top: 36px;
-  border-top: 1px solid #d9cbbd;
+/* Image Lightbox */
+
+.image-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(47, 42, 37, 0.82);
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+}
+
+.image-lightbox img {
+  max-width: 92vw;
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: 14px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 24px;
+  right: 30px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(247, 241, 234, 0.7);
+  border-radius: 50%;
+  background: rgba(247, 241, 234, 0.1);
+  color: #f7f1ea;
+  font-size: 30px;
+  line-height: 36px;
+  cursor: pointer;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.lightbox-close:hover {
+  background: #f7f1ea;
+  color: #2f2a25;
 }
 
 /* Contact */
@@ -286,18 +322,110 @@ a {
   flex-wrap: wrap;
 }
 
-.contact-links a {
+.contact-links a,
+.contact-button {
   padding: 14px 28px;
   border: 1px solid #2f2a25;
+  background: transparent;
+  color: #2f2a25;
+  font-family: Georgia, "Times New Roman", serif;
   font-size: 13px;
   letter-spacing: 2px;
   text-transform: uppercase;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-.contact-links a:hover {
+.contact-links a:hover,
+.contact-button:hover {
   background: #2f2a25;
   color: #f7f1ea;
+}
+
+.wechat-popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(47, 42, 37, 0.35);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.wechat-popup-content {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  padding: 34px 28px 30px;
+  background: #f7f1ea;
+  border: 1px solid #d8c9ba;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 24px 70px rgba(47, 42, 37, 0.22);
+}
+
+.wechat-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  border: none;
+  background: transparent;
+  font-size: 28px;
+  line-height: 1;
+  color: #2f2a25;
+  cursor: pointer;
+}
+
+.wechat-label {
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #a17654;
+  margin-bottom: 8px;
+}
+
+.wechat-id {
+  font-size: 22px;
+  color: #2f2a25;
+  margin-bottom: 18px;
+}
+
+.copy-wechat-button {
+  display: inline-block;
+  margin-bottom: 22px;
+  padding: 11px 20px;
+  border: 1px solid #2f2a25;
+  background: transparent;
+  color: #2f2a25;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 12px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.copy-wechat-button:hover {
+  background: #2f2a25;
+  color: #f7f1ea;
+}
+
+.wechat-qr {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  margin: 0 auto;
+  border-radius: 12px;
+  background: #efe6dc;
+}
+
+.copy-message {
+  margin-top: 14px;
+  font-size: 13px;
+  color: #a17654;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 /* Footer */
@@ -355,9 +483,14 @@ a {
     gap: 32px;
   }
 
-  .gallery {
-    column-count: 2;
-  }
+.gallery {
+  column-count: 3;
+  column-gap: 14px;
+}
+
+.gallery img {
+  margin-bottom: 14px;
+}
 
   .story-card {
     padding: 54px 36px;
@@ -400,8 +533,32 @@ a {
     padding: 70px 20px;
   }
 
-  .gallery {
-    column-count: 1;
+.gallery {
+  column-count: 3;
+  column-gap: 8px;
+}
+
+.gallery img {
+  margin-bottom: 8px;
+  border-radius: 8px;
+}
+
+  .image-lightbox {
+    padding: 18px;
+  }
+
+  .image-lightbox img {
+    max-width: 94vw;
+    max-height: 82vh;
+    border-radius: 10px;
+  }
+
+  .lightbox-close {
+    top: 16px;
+    right: 16px;
+    width: 38px;
+    height: 38px;
+    font-size: 28px;
   }
 
   .story-card {
@@ -425,10 +582,20 @@ a {
   }
 
   .contact-links {
-    flex-direction: column;
-  }
+  flex-direction: column;
+}
 
-  .contact-links a {
-    width: 100%;
-  }
+.contact-links a,
+.contact-button {
+  width: 100%;
+}
+
+.wechat-card {
+  max-width: 100%;
+}
+
+.wechat-qr {
+  width: 160px;
+  height: 160px;
+}
 }
