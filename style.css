@@ -788,13 +788,27 @@ a {
 }
 
 /* 点击导航到达区域后的轻微浮现效果 */
-.section-reveal {
-  animation: sectionReveal 1.8s ease forwards;
+/* 首页内部点击导航时的柔和切换 */
+.page-fade {
+  opacity: 0;
+  animation: pageFadeIn 1.4s ease forwards;
 }
 
-@keyframes sectionReveal {
+.page-fade.is-switching {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.38s ease, transform 0.38s ease;
+}
+
+.page-fade.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+
+@keyframes pageFadeIn {
   from {
-    opacity: 0.55;
+    opacity: 0;
     transform: translateY(6px);
   }
 
