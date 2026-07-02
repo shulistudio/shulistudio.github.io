@@ -581,13 +581,30 @@ a {
     padding-top: 28px;
   }
 
-  .contact-links {
-  flex-direction: column;
+.contact-links {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
 }
 
 .contact-links a,
 .contact-button {
   width: 100%;
+  padding: 12px 6px;
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  text-align: center;
+}
+
+.contact-links a:nth-child(1),
+.contact-links a:nth-child(2),
+.contact-links a:nth-child(3) {
+  grid-column: span 2;
+}
+
+.contact-links .contact-button,
+.contact-links a:nth-child(5) {
+  grid-column: span 3;
 }
 
 .wechat-card {
