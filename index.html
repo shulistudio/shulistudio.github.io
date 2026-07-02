@@ -24,9 +24,9 @@
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <a href="#" class="logo-link">
-        <img src="image/logo-1.png" alt="Shuli Studio Logo" class="logo" />
-      </a>
+<a href="index.html" class="logo-link">
+  <img src="image/logo-1.png" alt="Shuli Studio Logo" class="logo" />
+</a>
 
 <nav class="nav">
   <a href="#about" class="nav-link">About</a>
@@ -292,17 +292,38 @@ const allImages = document.querySelectorAll(
   const instantNavLinks = document.querySelectorAll('.nav-link[href^="#"], .button[href^="#"]');
   const pageFade = document.querySelector(".page-fade");
 
+  function getTargetY(targetSection) {
+    const header = document.querySelector(".site-header");
+    const headerHeight = header ? header.offsetHeight : 0;
+
+    /*
+      数字越大，目标板块越往上；
+      数字越小，目标板块越往下。
+    */
+    let positionAdjust = -55;
+
+    if (
+      targetSection.id === "collection" ||
+      targetSection.id === "story" ||
+      targetSection.id === "contact"
+    ) {
+      positionAdjust = 110;
+    }
+
+    return targetSection.offsetTop - headerHeight + positionAdjust;
+  }
+
   function jumpToSection(href) {
     const targetSection = document.querySelector(href);
 
     if (!targetSection || !pageFade) return;
 
     pageFade.classList.remove("is-visible");
+    pageFade.classList.remove("is-section-visible");
     pageFade.classList.add("is-switching");
 
     setTimeout(function () {
-      const headerHeight = document.querySelector(".site-header").offsetHeight;
-      const targetY = targetSection.offsetTop - headerHeight - 16;
+      const targetY = getTargetY(targetSection);
 
       window.scrollTo({
         top: targetY,
@@ -311,12 +332,14 @@ const allImages = document.querySelectorAll(
 
       history.pushState(null, "", href);
 
-      pageFade.classList.remove("is-switching");
-
       requestAnimationFrame(function () {
-        pageFade.classList.add("is-visible");
+        requestAnimationFrame(function () {
+          pageFade.classList.remove("is-switching");
+          pageFade.classList.remove("is-visible");
+          pageFade.classList.add("is-section-visible");
+        });
       });
-    }, 260);
+    }, 470);
   }
 
   instantNavLinks.forEach(function (link) {
@@ -337,13 +360,9 @@ const allImages = document.querySelectorAll(
 
   window.addEventListener("load", function () {
     if (pageFade) {
-      pageFade.classList.add("is-visible");
-    }
-
-    if (window.location.hash) {
-      setTimeout(function () {
-        jumpToSection(window.location.hash);
-      }, 500);
+      requestAnimationFrame(function () {
+        pageFade.classList.add("is-visible");
+      });
     }
   });
 </script>
@@ -377,5 +396,6 @@ const allImages = document.querySelectorAll(
   window.addEventListener("scroll", updateActiveNav);
   window.addEventListener("load", updateActiveNav);
 </script>
+
 </body>
 </html>
