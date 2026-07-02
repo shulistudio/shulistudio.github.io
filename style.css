@@ -768,25 +768,6 @@ a {
   cursor: zoom-in;
 }
 
-/* 页面刷新 / 进入时整体慢慢显现 */
-.page-fade {
-  opacity: 0;
-  transform: translateY(8px);
-  animation: pageFadeIn 1.8s ease forwards;
-}
-
-@keyframes pageFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 /* 点击导航到达区域后的轻微浮现效果 */
 /* 首页内部点击导航时的柔和切换 */
 .page-fade {
