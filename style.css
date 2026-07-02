@@ -343,7 +343,7 @@ a {
 }
 
 .wechat-popup {
-  display: none;
+  display: flex;
   position: fixed;
   inset: 0;
   background: rgba(47, 42, 37, 0.35);
@@ -351,6 +351,11 @@ a {
   justify-content: center;
   align-items: center;
   padding: 24px;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.45s ease, visibility 0.45s ease;
 }
 
 .wechat-popup-content {
@@ -363,6 +368,19 @@ a {
   border-radius: 24px;
   text-align: center;
   box-shadow: 0 24px 70px rgba(47, 42, 37, 0.22);
+
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.wechat-popup.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.wechat-popup.show .wechat-popup-content {
+  opacity: 1;
 }
 
 .wechat-close {
@@ -582,29 +600,23 @@ a {
   }
 
 .contact-links {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
 }
 
 .contact-links a,
 .contact-button {
-  width: 100%;
-  padding: 12px 6px;
+  width: 118px;
+  height: 58px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 11px;
-  letter-spacing: 1.2px;
+  letter-spacing: 1.4px;
   text-align: center;
-}
-
-.contact-links a:nth-child(1),
-.contact-links a:nth-child(2),
-.contact-links a:nth-child(3) {
-  grid-column: span 2;
-}
-
-.contact-links .contact-button,
-.contact-links a:nth-child(5) {
-  grid-column: span 3;
 }
 
 .wechat-card {
