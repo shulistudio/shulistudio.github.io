@@ -561,9 +561,20 @@ a {
   }
 
 .nav {
-  gap: 12px 14px;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-content: center;
+  gap: 12px 18px;
   letter-spacing: 1.2px;
   font-size: 11px;
+}
+
+.nav-link:nth-child(5) {
+  grid-column: 2;
+}
+
+.nav-link:nth-child(6) {
+  grid-column: 3;
 }
 
   .hero {
