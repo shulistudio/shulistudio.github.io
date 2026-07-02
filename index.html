@@ -138,7 +138,7 @@
         Once everything is ready, I will gradually open my own ceramics studio in New Zealand, continuing to create more handmade ceramics and small handcrafted pieces. Shuli Studio hopes to start in Jingdezhen and slowly grow in Auckland, bringing quiet, delicate works with the warmth of handcrafted art into the daily lives of more people.
       </p>
 
-      <p class="story-cn">
+      <p class="story-cn first-cn">
         这些作品都由我在中国景德镇独立设计与制作。景德镇被称为“中国陶瓷之都”，这里拥有悠久的制瓷历史，也承载着深厚的手工艺传统。我的创作正是从这座城市开始的。
       </p>
 
@@ -170,16 +170,109 @@
         </p>
       </div>
 
-      <div class="contact-links">
-        <a href="mailto:shishuli01@gmail.com">shishuli01@gmail.com</a>
-        <a href="https://www.instagram.com/shulistudio/" target="_blank">Instagram</a>
-      </div>
+     <div class="contact-links">
+  <a href="mailto:shishuli01@gmail.com">Email</a>
+
+  <a href="https://www.instagram.com/shulistudio/" target="_blank">
+    Instagram
+  </a>
+
+  <a href="https://www.facebook.com/profile.php?id=61551222845910" target="_blank">
+    Facebook
+  </a>
+
+  <button class="contact-button" onclick="showWechat()">
+  WeChat
+</button>
+
+  <a href="https://xhslink.com/m/2NWON2d0ikF" target="_blank">
+    XiaoHongShu
+  </a>
+</div>
+
+<div class="wechat-popup" id="wechatPopup">
+  <div class="wechat-popup-content">
+    <button class="wechat-close" onclick="closeWechat()">×</button>
+
+    <p class="wechat-label">WeChat ID</p>
+    <p class="wechat-id" id="wechatId">ByShuli</p>
+
+    <button class="copy-wechat-button" onclick="copyWechat()">
+      Copy WeChat ID
+    </button>
+
+    <img src="image/wechat-qr.png" alt="Shuli Studio WeChat QR Code" class="wechat-qr" />
+
+    <p class="copy-message" id="copyMessage">WeChat ID copied.</p>
+  </div>
+</div>
+
+<script>
+  function showWechat() {
+    document.getElementById("wechatPopup").style.display = "flex";
+  }
+
+  function closeWechat() {
+    document.getElementById("wechatPopup").style.display = "none";
+  }
+
+  function copyWechat() {
+    const wechatId = document.getElementById("wechatId").innerText;
+
+    navigator.clipboard.writeText(wechatId).then(function () {
+      const message = document.getElementById("copyMessage");
+      message.style.opacity = "1";
+
+      setTimeout(function () {
+        message.style.opacity = "0";
+      }, 2000);
+    });
+  }
+</script>
+
     </section>
   </main>
 
   <footer class="site-footer">
     <img src="image/logo-1.png" alt="Shuli Studio Logo" class="footer-logo" />
-    <p>© 2026 Shuli Studio. Handcrafted with care.</p>
-  </footer>
+    <p>© 2026 Shuli Studio · 述礼 · Handcrafted with care.</p>  </footer>
+
+<div class="image-lightbox" id="imageLightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <img src="" alt="Full size product image" id="lightboxImage" />
+</div>
+
+<script>
+  const galleryImages = document.querySelectorAll(".gallery img");
+  const lightbox = document.getElementById("imageLightbox");
+  const lightboxImage = document.getElementById("lightboxImage");
+
+  galleryImages.forEach(function (image) {
+    image.addEventListener("click", function () {
+      lightboxImage.src = image.src;
+      lightboxImage.alt = image.alt;
+      lightbox.style.display = "flex";
+      document.body.style.overflow = "hidden";
+    });
+  });
+
+  function closeLightbox() {
+    lightbox.style.display = "none";
+    lightboxImage.src = "";
+    document.body.style.overflow = "";
+  }
+
+  lightbox.addEventListener("click", function (event) {
+    if (event.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      closeLightbox();
+    }
+  });
+</script>
 </body>
 </html>
