@@ -377,8 +377,14 @@ a {
   display: flex;
   position: fixed;
   inset: 0;
+  width: 100vw;
+  height: 100dvh;
   background: rgba(47, 42, 37, 0.35);
-  z-index: 999;
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
   justify-content: center;
   align-items: center;
   padding: 24px;
@@ -795,50 +801,44 @@ a {
 /* 页面进入 / 首页内部点击导航时的整体淡入淡出 */
 .page-fade {
   opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 2.1s ease, transform 2.1s ease;
+  transform: none;
+  transition: opacity 2.1s ease;
 }
 
 .page-fade.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 /* 点击 About / Collection / Story / Contact 时的淡出 */
 .page-fade.is-switching {
   opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.45s ease, transform 0.45s ease;
+  transform: none;
+  transition: opacity 0.45s ease;
 }
 
 /* 点击 About / Collection / Story / Contact 后的重新显现 */
 .page-fade.is-section-visible {
   opacity: 1;
-  transform: translateY(0);
-  transition: opacity 1.15s ease, transform 1.15s ease;
+  transform: none;
+  transition: opacity 1.15s ease;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 @media (max-width: 600px) {
-  .page-hero {
-    padding: 20px 20px 18px;
+  .wechat-popup {
+    align-items: center;
+    padding: 18px;
   }
 
-  .page-hero h1 {
-    margin-bottom: 16px;
-  }
-
-  .page-hero p:last-child {
-    font-size: 15px;
-    line-height: 1.55;
-  }
-
-  .havefun-section,
-  .moment-section {
-    padding-top: 24px;
-  }
-
-  .gallery-grid,
-  .moment-section .gallery-grid {
-    margin-top: 0;
+  .wechat-popup-content {
+    max-width: 86vw;
+    max-height: 78dvh;
+    overflow-y: auto;
+    padding: 30px 24px 28px;
   }
 }
