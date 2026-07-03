@@ -39,7 +39,7 @@
     </div>
   </header>
 
-<main class="page-fade">
+<main class="page-fade home-fade">
     <section class="hero">
       <div class="hero-text">
         <p class="eyebrow">Handcraft Studio</p>
@@ -312,7 +312,7 @@ const allImages = document.querySelectorAll(
       数字越大，目标板块越往上；
       数字越小，目标板块越往下。
     */
-let positionAdjust = -55;
+let positionAdjust = -30;
 
 if (
   targetSection.id === "collection" ||
@@ -324,7 +324,7 @@ if (
 
 /* 只调整手机端，不影响电脑端 */
 if (window.innerWidth <= 600) {
-  positionAdjust = -105;
+  positionAdjust = -60;
 
   if (
     targetSection.id === "collection" ||
