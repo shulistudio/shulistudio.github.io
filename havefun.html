@@ -111,12 +111,8 @@
     ‹
   </button>
 
-  <div class="image-modal-slider">
-    <div class="image-modal-track" id="modalImageTrack">
-      <img id="modalPrevImage" src="" alt="Previous image">
-      <img id="modalCurrentImage" src="" alt="Preview image">
-      <img id="modalNextImage" src="" alt="Next image">
-    </div>
+  <div class="image-modal-slider" id="imageModalSlider">
+    <div class="image-modal-track" id="modalImageTrack"></div>
   </div>
 
   <button class="image-modal-arrow image-modal-next" type="button" aria-label="Next image">
@@ -129,74 +125,83 @@
   const imageModalClose = document.querySelector(".image-modal-close");
   const prevButton = document.querySelector(".image-modal-prev");
   const nextButton = document.querySelector(".image-modal-next");
-
   const modalImageTrack = document.getElementById("modalImageTrack");
-  const modalPrevImage = document.getElementById("modalPrevImage");
-  const modalCurrentImage = document.getElementById("modalCurrentImage");
-  const modalNextImage = document.getElementById("modalNextImage");
 
   const allImages = Array.from(
     document.querySelectorAll(".gallery img, .gallery-grid img")
   );
 
-  let currentImageIndex = 0;
-  let touchStartX = 0;
-  let touchEndX = 0;
-  let isSliding = false;
-
-  allImages.forEach(function (img, index) {
-    img.classList.add("clickable-image");
-
-    img.addEventListener("click", function () {
-      currentImageIndex = index;
-      openImageModal();
-    });
+  const imageList = allImages.map(function (img) {
+    return {
+      src: img.currentSrc || img.src,
+      alt: img.alt || "Preview image"
+    };
   });
 
-  function getPrevIndex() {
-    return (currentImageIndex - 1 + allImages.length) % allImages.length;
-  }
+  let currentImageIndex = 0;
+  let touchStartX = 0;
+  let touchCurrentX = 0;
+  let isDragging = false;
 
-  function getNextIndex() {
-    return (currentImageIndex + 1) % allImages.length;
-  }
+  function renderModalImages() {
+    modalImageTrack.innerHTML = "";
 
-  function setModalImages() {
-    if (allImages.length === 0) return;
+    imageList.forEach(function (item) {
+      const slide = document.createElement("div");
+      slide.className = "image-modal-slide";
 
-    const prevImage = allImages[getPrevIndex()];
-    const currentImage = allImages[currentImageIndex];
-    const nextImage = allImages[getNextIndex()];
+      const image = document.createElement("img");
+      image.src = item.src;
+      image.alt = item.alt;
 
-    modalPrevImage.src = prevImage.src;
-    modalPrevImage.alt = prevImage.alt || "Previous image";
-
-    modalCurrentImage.src = currentImage.src;
-    modalCurrentImage.alt = currentImage.alt || "Preview image";
-
-    modalNextImage.src = nextImage.src;
-    modalNextImage.alt = nextImage.alt || "Next image";
-  }
-
-  function resetTrackPosition() {
-    modalImageTrack.classList.add("no-transition");
-    modalImageTrack.style.transform = "translateX(-33.3333%)";
-
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        modalImageTrack.classList.remove("no-transition");
-      });
+      slide.appendChild(image);
+      modalImageTrack.appendChild(slide);
     });
   }
 
-  function openImageModal() {
-    if (allImages.length === 0) return;
+  function updateArrowState() {
+    if (currentImageIndex === 0) {
+      prevButton.classList.add("disabled");
+    } else {
+      prevButton.classList.remove("disabled");
+    }
 
-    setModalImages();
-    resetTrackPosition();
+    if (currentImageIndex === imageList.length - 1) {
+      nextButton.classList.add("disabled");
+    } else {
+      nextButton.classList.remove("disabled");
+    }
+  }
+
+  function moveTrack(withTransition, offsetX) {
+    const baseMove = -currentImageIndex * 100;
+    const extraMove = offsetX || 0;
+
+    if (withTransition) {
+      modalImageTrack.style.transition =
+        "transform 0.38s cubic-bezier(0.22, 0.61, 0.36, 1)";
+    } else {
+      modalImageTrack.style.transition = "none";
+    }
+
+    modalImageTrack.style.transform =
+      "translate3d(calc(" + baseMove + "% + " + extraMove + "px), 0, 0)";
+  }
+
+  function openImageModal(index) {
+    if (imageList.length === 0) return;
+
+    currentImageIndex = index;
+
+    if (modalImageTrack.children.length === 0) {
+      renderModalImages();
+    }
 
     imageModal.classList.add("show");
     document.body.style.overflow = "hidden";
+
+    moveTrack(false, 0);
+    updateArrowState();
   }
 
   function closeImageModal() {
@@ -204,43 +209,39 @@
     document.body.style.overflow = "";
   }
 
-  function slideToNextImage() {
-    if (isSliding || allImages.length === 0) return;
+  function showNextImage() {
+    if (currentImageIndex >= imageList.length - 1) {
+      moveTrack(true, 0);
+      return;
+    }
 
-    isSliding = true;
-
-    modalImageTrack.style.transform = "translateX(-66.6666%)";
-
-    setTimeout(function () {
-      currentImageIndex = getNextIndex();
-
-      setModalImages();
-      resetTrackPosition();
-
-      isSliding = false;
-    }, 380);
+    currentImageIndex++;
+    moveTrack(true, 0);
+    updateArrowState();
   }
 
-  function slideToPrevImage() {
-    if (isSliding || allImages.length === 0) return;
+  function showPrevImage() {
+    if (currentImageIndex <= 0) {
+      moveTrack(true, 0);
+      return;
+    }
 
-    isSliding = true;
-
-    modalImageTrack.style.transform = "translateX(0)";
-
-    setTimeout(function () {
-      currentImageIndex = getPrevIndex();
-
-      setModalImages();
-      resetTrackPosition();
-
-      isSliding = false;
-    }, 380);
+    currentImageIndex--;
+    moveTrack(true, 0);
+    updateArrowState();
   }
+
+  allImages.forEach(function (img, index) {
+    img.classList.add("clickable-image");
+
+    img.addEventListener("click", function () {
+      openImageModal(index);
+    });
+  });
 
   imageModalClose.addEventListener("click", closeImageModal);
-  prevButton.addEventListener("click", slideToPrevImage);
-  nextButton.addEventListener("click", slideToNextImage);
+  prevButton.addEventListener("click", showPrevImage);
+  nextButton.addEventListener("click", showNextImage);
 
   imageModal.addEventListener("click", function (event) {
     if (event.target === imageModal) {
@@ -256,34 +257,55 @@
     }
 
     if (event.key === "ArrowLeft") {
-      slideToPrevImage();
+      showPrevImage();
     }
 
     if (event.key === "ArrowRight") {
-      slideToNextImage();
+      showNextImage();
     }
   });
 
   imageModal.addEventListener("touchstart", function (event) {
-    touchStartX = event.changedTouches[0].screenX;
+    touchStartX = event.touches[0].clientX;
+    touchCurrentX = touchStartX;
+    isDragging = true;
+
+    moveTrack(false, 0);
   });
 
-  imageModal.addEventListener("touchend", function (event) {
-    touchEndX = event.changedTouches[0].screenX;
-    handleSwipe();
-  });
+  imageModal.addEventListener("touchmove", function (event) {
+    if (!isDragging) return;
 
-  function handleSwipe() {
-    const swipeDistance = touchEndX - touchStartX;
+    touchCurrentX = event.touches[0].clientX;
+    let offsetX = touchCurrentX - touchStartX;
 
-    if (Math.abs(swipeDistance) < 50) return;
-
-    if (swipeDistance > 0) {
-      slideToPrevImage();
-    } else {
-      slideToNextImage();
+    if (currentImageIndex === 0 && offsetX > 0) {
+      offsetX = offsetX * 0.25;
     }
-  }
+
+    if (currentImageIndex === imageList.length - 1 && offsetX < 0) {
+      offsetX = offsetX * 0.25;
+    }
+
+    moveTrack(false, offsetX);
+    event.preventDefault();
+  }, { passive: false });
+
+  imageModal.addEventListener("touchend", function () {
+    if (!isDragging) return;
+
+    isDragging = false;
+
+    const swipeDistance = touchCurrentX - touchStartX;
+
+    if (swipeDistance < -60) {
+      showNextImage();
+    } else if (swipeDistance > 60) {
+      showPrevImage();
+    } else {
+      moveTrack(true, 0);
+    }
+  });
 </script>
 
 <script>
