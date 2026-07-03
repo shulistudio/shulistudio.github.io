@@ -197,13 +197,25 @@
 </div>
 
 <script>
-  function showWechat() {
-    document.getElementById("wechatPopup").classList.add("show");
-  }
+function showWechat() {
+  const popup = document.getElementById("wechatPopup");
+  popup.classList.add("show");
+  document.body.style.overflow = "hidden";
+}
 
-  function closeWechat() {
-    document.getElementById("wechatPopup").classList.remove("show");
+function closeWechat() {
+  const popup = document.getElementById("wechatPopup");
+  popup.classList.remove("show");
+  document.body.style.overflow = "";
+}
+
+window.addEventListener("DOMContentLoaded", function () {
+  const popup = document.getElementById("wechatPopup");
+  if (popup) {
+    popup.classList.remove("show");
+    document.body.style.overflow = "";
   }
+});
 
   function copyWechat() {
     const wechatId = document.getElementById("wechatId").innerText;
