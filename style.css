@@ -374,7 +374,7 @@ a {
 }
 
 .wechat-popup {
-  display: flex;
+  display: none;
   position: fixed;
   inset: 0;
   width: 100vw;
@@ -391,6 +391,13 @@ a {
   transition: opacity 0.45s ease, visibility 0.45s ease;
 }
 
+.wechat-popup.show {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
 .wechat-popup-content {
   position: relative;
   width: 100%;
@@ -404,12 +411,6 @@ a {
 
   opacity: 0;
   transition: opacity 0.45s ease;
-}
-
-.wechat-popup.show {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
 }
 
 .wechat-popup.show .wechat-popup-content {
