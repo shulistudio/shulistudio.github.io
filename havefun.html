@@ -111,7 +111,13 @@
     ‹
   </button>
 
-  <img id="modalImage" src="" alt="Preview image">
+  <div class="image-modal-slider">
+    <div class="image-modal-track" id="modalImageTrack">
+      <img id="modalPrevImage" src="" alt="Previous image">
+      <img id="modalCurrentImage" src="" alt="Preview image">
+      <img id="modalNextImage" src="" alt="Next image">
+    </div>
+  </div>
 
   <button class="image-modal-arrow image-modal-next" type="button" aria-label="Next image">
     ›
@@ -119,11 +125,16 @@
 </div>
 
 <script>
+<script>
   const imageModal = document.getElementById("imageModal");
-  const modalImage = document.getElementById("modalImage");
   const imageModalClose = document.querySelector(".image-modal-close");
   const prevButton = document.querySelector(".image-modal-prev");
   const nextButton = document.querySelector(".image-modal-next");
+
+  const modalImageTrack = document.getElementById("modalImageTrack");
+  const modalPrevImage = document.getElementById("modalPrevImage");
+  const modalCurrentImage = document.getElementById("modalCurrentImage");
+  const modalNextImage = document.getElementById("modalNextImage");
 
   const allImages = Array.from(
     document.querySelectorAll(".gallery img, .gallery-grid img")
@@ -132,7 +143,7 @@
   let currentImageIndex = 0;
   let touchStartX = 0;
   let touchEndX = 0;
-  let isChangingImage = false;
+  let isSliding = false;
 
   allImages.forEach(function (img, index) {
     img.classList.add("clickable-image");
@@ -143,24 +154,47 @@
     });
   });
 
-  function clearSlideClasses() {
-    modalImage.classList.remove(
-      "slide-out-left",
-      "slide-out-right",
-      "slide-in-left",
-      "slide-in-right"
-    );
+  function getPrevIndex() {
+    return (currentImageIndex - 1 + allImages.length) % allImages.length;
+  }
+
+  function getNextIndex() {
+    return (currentImageIndex + 1) % allImages.length;
+  }
+
+  function setModalImages() {
+    if (allImages.length === 0) return;
+
+    const prevImage = allImages[getPrevIndex()];
+    const currentImage = allImages[currentImageIndex];
+    const nextImage = allImages[getNextIndex()];
+
+    modalPrevImage.src = prevImage.src;
+    modalPrevImage.alt = prevImage.alt || "Previous image";
+
+    modalCurrentImage.src = currentImage.src;
+    modalCurrentImage.alt = currentImage.alt || "Preview image";
+
+    modalNextImage.src = nextImage.src;
+    modalNextImage.alt = nextImage.alt || "Next image";
+  }
+
+  function resetTrackPosition() {
+    modalImageTrack.classList.add("no-transition");
+    modalImageTrack.style.transform = "translateX(-33.3333%)";
+
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        modalImageTrack.classList.remove("no-transition");
+      });
+    });
   }
 
   function openImageModal() {
-    const currentImage = allImages[currentImageIndex];
+    if (allImages.length === 0) return;
 
-    if (!currentImage) return;
-
-    clearSlideClasses();
-
-    modalImage.src = currentImage.src;
-    modalImage.alt = currentImage.alt || "Preview image";
+    setModalImages();
+    resetTrackPosition();
 
     imageModal.classList.add("show");
     document.body.style.overflow = "hidden";
@@ -169,60 +203,45 @@
   function closeImageModal() {
     imageModal.classList.remove("show");
     document.body.style.overflow = "";
-    clearSlideClasses();
   }
 
-  function changeImage(direction) {
-    if (isChangingImage || allImages.length === 0) return;
+  function slideToNextImage() {
+    if (isSliding || allImages.length === 0) return;
 
-    isChangingImage = true;
+    isSliding = true;
 
-    const isNext = direction === "next";
-    const outClass = isNext ? "slide-out-left" : "slide-out-right";
-    const inClass = isNext ? "slide-in-right" : "slide-in-left";
-
-    clearSlideClasses();
-    modalImage.classList.add(outClass);
+    modalImageTrack.style.transform = "translateX(-66.6666%)";
 
     setTimeout(function () {
-      if (isNext) {
-        currentImageIndex = (currentImageIndex + 1) % allImages.length;
-      } else {
-        currentImageIndex =
-          (currentImageIndex - 1 + allImages.length) % allImages.length;
-      }
+      currentImageIndex = getNextIndex();
 
-      const currentImage = allImages[currentImageIndex];
+      setModalImages();
+      resetTrackPosition();
 
-      modalImage.src = currentImage.src;
-      modalImage.alt = currentImage.alt || "Preview image";
-
-      clearSlideClasses();
-      modalImage.classList.add(inClass);
-
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          modalImage.classList.remove(inClass);
-        });
-      });
-
-      setTimeout(function () {
-        isChangingImage = false;
-      }, 380);
-    }, 220);
+      isSliding = false;
+    }, 380);
   }
 
-  function showPrevImage() {
-    changeImage("prev");
-  }
+  function slideToPrevImage() {
+    if (isSliding || allImages.length === 0) return;
 
-  function showNextImage() {
-    changeImage("next");
+    isSliding = true;
+
+    modalImageTrack.style.transform = "translateX(0)";
+
+    setTimeout(function () {
+      currentImageIndex = getPrevIndex();
+
+      setModalImages();
+      resetTrackPosition();
+
+      isSliding = false;
+    }, 380);
   }
 
   imageModalClose.addEventListener("click", closeImageModal);
-  prevButton.addEventListener("click", showPrevImage);
-  nextButton.addEventListener("click", showNextImage);
+  prevButton.addEventListener("click", slideToPrevImage);
+  nextButton.addEventListener("click", slideToNextImage);
 
   imageModal.addEventListener("click", function (event) {
     if (event.target === imageModal) {
@@ -238,11 +257,11 @@
     }
 
     if (event.key === "ArrowLeft") {
-      showPrevImage();
+      slideToPrevImage();
     }
 
     if (event.key === "ArrowRight") {
-      showNextImage();
+      slideToNextImage();
     }
   });
 
@@ -261,9 +280,9 @@
     if (Math.abs(swipeDistance) < 50) return;
 
     if (swipeDistance > 0) {
-      showPrevImage();
+      slideToPrevImage();
     } else {
-      showNextImage();
+      slideToNextImage();
     }
   }
 </script>
