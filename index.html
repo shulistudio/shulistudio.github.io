@@ -257,36 +257,77 @@ window.addEventListener("DOMContentLoaded", function () {
     <p>© 2026 Shuli Studio · 述礼 · Handcrafted with care.</p>  </footer>
 
 <div id="imageModal" class="image-modal">
-  <span class="image-modal-close">&times;</span>
+  <button class="image-modal-close" type="button" aria-label="Close image">&times;</button>
+
+  <button class="image-modal-arrow image-modal-prev" type="button" aria-label="Previous image">
+    ‹
+  </button>
+
   <img id="modalImage" src="" alt="Preview image">
+
+  <button class="image-modal-arrow image-modal-next" type="button" aria-label="Next image">
+    ›
+  </button>
 </div>
 
 <script>
   const imageModal = document.getElementById("imageModal");
   const modalImage = document.getElementById("modalImage");
   const imageModalClose = document.querySelector(".image-modal-close");
+  const prevButton = document.querySelector(".image-modal-prev");
+  const nextButton = document.querySelector(".image-modal-next");
 
-const allImages = document.querySelectorAll(
-  ".gallery img, .gallery-grid img"
-);
+  const allImages = Array.from(
+    document.querySelectorAll(".gallery img, .gallery-grid img")
+  );
 
-  allImages.forEach(function (img) {
+  let currentImageIndex = 0;
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  allImages.forEach(function (img, index) {
     img.classList.add("clickable-image");
 
     img.addEventListener("click", function () {
-      modalImage.src = img.src;
-      modalImage.alt = img.alt || "Preview image";
-      imageModal.classList.add("show");
-      document.body.style.overflow = "hidden";
+      currentImageIndex = index;
+      openImageModal();
     });
   });
+
+  function openImageModal() {
+    const currentImage = allImages[currentImageIndex];
+
+    if (!currentImage) return;
+
+    modalImage.src = currentImage.src;
+    modalImage.alt = currentImage.alt || "Preview image";
+
+    imageModal.classList.add("show");
+    document.body.style.overflow = "hidden";
+  }
 
   function closeImageModal() {
     imageModal.classList.remove("show");
     document.body.style.overflow = "";
   }
 
+  function showPrevImage() {
+    currentImageIndex =
+      (currentImageIndex - 1 + allImages.length) % allImages.length;
+
+    openImageModal();
+  }
+
+  function showNextImage() {
+    currentImageIndex =
+      (currentImageIndex + 1) % allImages.length;
+
+    openImageModal();
+  }
+
   imageModalClose.addEventListener("click", closeImageModal);
+  prevButton.addEventListener("click", showPrevImage);
+  nextButton.addEventListener("click", showNextImage);
 
   imageModal.addEventListener("click", function (event) {
     if (event.target === imageModal) {
@@ -295,10 +336,41 @@ const allImages = document.querySelectorAll(
   });
 
   document.addEventListener("keydown", function (event) {
+    if (!imageModal.classList.contains("show")) return;
+
     if (event.key === "Escape") {
       closeImageModal();
     }
+
+    if (event.key === "ArrowLeft") {
+      showPrevImage();
+    }
+
+    if (event.key === "ArrowRight") {
+      showNextImage();
+    }
   });
+
+  imageModal.addEventListener("touchstart", function (event) {
+    touchStartX = event.changedTouches[0].screenX;
+  });
+
+  imageModal.addEventListener("touchend", function (event) {
+    touchEndX = event.changedTouches[0].screenX;
+    handleSwipe();
+  });
+
+  function handleSwipe() {
+    const swipeDistance = touchEndX - touchStartX;
+
+    if (Math.abs(swipeDistance) < 50) return;
+
+    if (swipeDistance > 0) {
+      showPrevImage();
+    } else {
+      showNextImage();
+    }
+  }
 </script>
 
 <script>
