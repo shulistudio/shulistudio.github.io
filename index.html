@@ -284,6 +284,7 @@ window.addEventListener("DOMContentLoaded", function () {
   let currentImageIndex = 0;
   let touchStartX = 0;
   let touchEndX = 0;
+  let isChangingImage = false;
 
   allImages.forEach(function (img, index) {
     img.classList.add("clickable-image");
@@ -294,10 +295,21 @@ window.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  function clearSlideClasses() {
+    modalImage.classList.remove(
+      "slide-out-left",
+      "slide-out-right",
+      "slide-in-left",
+      "slide-in-right"
+    );
+  }
+
   function openImageModal() {
     const currentImage = allImages[currentImageIndex];
 
     if (!currentImage) return;
+
+    clearSlideClasses();
 
     modalImage.src = currentImage.src;
     modalImage.alt = currentImage.alt || "Preview image";
@@ -309,20 +321,55 @@ window.addEventListener("DOMContentLoaded", function () {
   function closeImageModal() {
     imageModal.classList.remove("show");
     document.body.style.overflow = "";
+    clearSlideClasses();
+  }
+
+  function changeImage(direction) {
+    if (isChangingImage || allImages.length === 0) return;
+
+    isChangingImage = true;
+
+    const isNext = direction === "next";
+    const outClass = isNext ? "slide-out-left" : "slide-out-right";
+    const inClass = isNext ? "slide-in-right" : "slide-in-left";
+
+    clearSlideClasses();
+    modalImage.classList.add(outClass);
+
+    setTimeout(function () {
+      if (isNext) {
+        currentImageIndex = (currentImageIndex + 1) % allImages.length;
+      } else {
+        currentImageIndex =
+          (currentImageIndex - 1 + allImages.length) % allImages.length;
+      }
+
+      const currentImage = allImages[currentImageIndex];
+
+      modalImage.src = currentImage.src;
+      modalImage.alt = currentImage.alt || "Preview image";
+
+      clearSlideClasses();
+      modalImage.classList.add(inClass);
+
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          modalImage.classList.remove(inClass);
+        });
+      });
+
+      setTimeout(function () {
+        isChangingImage = false;
+      }, 380);
+    }, 220);
   }
 
   function showPrevImage() {
-    currentImageIndex =
-      (currentImageIndex - 1 + allImages.length) % allImages.length;
-
-    openImageModal();
+    changeImage("prev");
   }
 
   function showNextImage() {
-    currentImageIndex =
-      (currentImageIndex + 1) % allImages.length;
-
-    openImageModal();
+    changeImage("next");
   }
 
   imageModalClose.addEventListener("click", closeImageModal);
