@@ -176,7 +176,7 @@ a {
 .page-hero {
   max-width: 980px;
   margin: 0 auto;
-  padding: 120px 28px 70px;
+  padding: 70px 28px 45px;
   text-align: center;
   border-bottom: 1px solid #e6ddd2;
 }
@@ -225,6 +225,9 @@ a {
   grid-template-columns: 0.9fr 1.1fr;
   gap: 80px;
   border-bottom: 1px solid #e6ddd2;
+
+  padding-top: 140px;
+  padding-bottom: 140px;
 }
 
 .about-content {
@@ -266,6 +269,8 @@ a {
 .havefun-section,
 .moment-section {
   border-bottom: 1px solid #e6ddd2;
+  padding-top: 55px;
+  padding-bottom: 70px;
 }
 
 .gallery-grid {
@@ -273,7 +278,7 @@ a {
   grid-template-columns: repeat(3, 1fr);
   gap: 22px;
   max-width: 1100px;
-  margin: 40px auto;
+  margin: 0 auto;
   padding: 0 24px;
 }
 
@@ -344,6 +349,8 @@ a {
 
 .contact-section {
   text-align: center;
+  padding-top: 130px;
+  padding-bottom: 170px;
 }
 
 .contact-links {
@@ -374,13 +381,14 @@ a {
 }
 
 .wechat-popup {
-  display: none;
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100dvh;
   background: rgba(47, 42, 37, 0.35);
   z-index: 9999;
+
+  display: flex;
   justify-content: center;
   align-items: center;
   padding: 24px;
@@ -388,11 +396,10 @@ a {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.45s ease, visibility 0.45s ease;
+  transition: opacity 0.55s ease, visibility 0.55s ease;
 }
 
 .wechat-popup.show {
-  display: flex;
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
@@ -410,11 +417,13 @@ a {
   box-shadow: 0 24px 70px rgba(47, 42, 37, 0.22);
 
   opacity: 0;
-  transition: opacity 0.45s ease;
+  transform: scale(0.98);
+  transition: opacity 0.55s ease, transform 0.55s ease;
 }
 
 .wechat-popup.show .wechat-popup-content {
   opacity: 1;
+  transform: scale(1);
 }
 
 .wechat-close {
@@ -607,6 +616,19 @@ a {
     padding: 56px 20px 70px;
   }
 
+  .page-hero {
+    padding: 48px 20px 34px;
+  }
+
+  .page-hero h1 {
+    margin-bottom: 18px;
+  }
+
+  .page-hero p:last-child {
+    font-size: 15.5px;
+    line-height: 1.7;
+  }
+
   .hero h1 {
     font-size: 44px;
   }
@@ -634,7 +656,7 @@ a {
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   padding: 0;
-  margin: 20px auto;
+  margin: 8px auto 20px;
 }
 
 .gallery-grid img {
@@ -700,7 +722,7 @@ a {
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
   max-width: 1100px;
-  margin: 40px auto;
+  margin: 0 auto;
   padding: 0 24px;
 }
 
@@ -726,7 +748,7 @@ a {
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
     padding: 0;
-    margin: 20px auto;
+    margin: 8px auto 20px;
   }
 
   .moment-section .gallery-grid img {
