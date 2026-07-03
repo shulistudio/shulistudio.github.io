@@ -29,6 +29,7 @@
 </a>
 
 <nav class="nav">
+  <a href="#home" class="nav-link">Home</a>
   <a href="#about" class="nav-link">About</a>
   <a href="#collection" class="nav-link">Collection</a>
   <a href="#story" class="nav-link">Story</a>
@@ -40,7 +41,7 @@
   </header>
 
 <main class="page-fade home-fade">
-    <section class="hero">
+   <section id="home" class="hero">
       <div class="hero-text">
         <p class="eyebrow">Handcraft Studio</p>
         <h1>Quiet pieces, made slowly by hand.</h1>
@@ -314,6 +315,10 @@ const allImages = document.querySelectorAll(
     */
 let positionAdjust = -30;
 
+if (targetSection.id === "home") {
+  return 0;
+}
+
 if (
   targetSection.id === "collection" ||
   targetSection.id === "story" ||
@@ -324,7 +329,7 @@ if (
 
 /* 只调整手机端，不影响电脑端 */
 if (window.innerWidth <= 600) {
-  positionAdjust = -60;
+  positionAdjust = -30;
 
   if (
     targetSection.id === "collection" ||
@@ -397,7 +402,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const navLinks = document.querySelectorAll(".nav-link");
 
   function updateActiveNav() {
-    let currentSection = "about";
+    let currentSection = "home";
 
     sections.forEach((section) => {
       const sectionTop = section.offsetTop;
