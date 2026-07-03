@@ -196,23 +196,6 @@
   </a>
 </div>
 
-<div class="wechat-popup" id="wechatPopup">
-  <div class="wechat-popup-content">
-    <button class="wechat-close" onclick="closeWechat()">×</button>
-
-    <p class="wechat-label">WeChat ID</p>
-    <p class="wechat-id" id="wechatId">ByShuli</p>
-
-    <button class="copy-wechat-button" onclick="copyWechat()">
-      Copy WeChat ID
-    </button>
-
-    <img src="image/wechat-qr.png" alt="Shuli Studio WeChat QR Code" class="wechat-qr" />
-
-    <p class="copy-message" id="copyMessage">WeChat ID copied.</p>
-  </div>
-</div>
-
 <script>
   function showWechat() {
     document.getElementById("wechatPopup").classList.add("show");
@@ -238,6 +221,23 @@
 
     </section>
   </main>
+
+<div class="wechat-popup" id="wechatPopup">
+  <div class="wechat-popup-content">
+    <button class="wechat-close" onclick="closeWechat()">×</button>
+
+    <p class="wechat-label">WeChat ID</p>
+    <p class="wechat-id" id="wechatId">ByShuli</p>
+
+    <button class="copy-wechat-button" onclick="copyWechat()">
+      Copy WeChat ID
+    </button>
+
+    <img src="image/wechat-qr.png" alt="Shuli Studio WeChat QR Code" class="wechat-qr" />
+
+    <p class="copy-message" id="copyMessage">WeChat ID copied.</p>
+  </div>
+</div>
 
   <footer class="site-footer">
     <img src="image/logo-1.png" alt="Shuli Studio Logo" class="footer-logo" />
@@ -371,7 +371,7 @@ if (window.innerWidth <= 600) {
     });
   });
 
-  window.addEventListener("load", function () {
+document.addEventListener("DOMContentLoaded", function () {
     if (pageFade) {
       requestAnimationFrame(function () {
         pageFade.classList.add("is-visible");
