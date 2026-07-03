@@ -625,12 +625,15 @@ a {
   font-size: 11px;
 }
 
+/* 第二行两个导航作为一组居中 */
 .nav-link:nth-child(6) {
-  grid-column: 2;
+  grid-column: 1 / 4;
+  justify-self: end;
 }
 
 .nav-link:nth-child(7) {
-  grid-column: 3;
+  grid-column: 4 / 6;
+  justify-self: start;
 }
 
   .hero {
@@ -650,9 +653,10 @@ a {
     line-height: 1.7;
   }
 
-  .hero h1 {
-    font-size: 44px;
-  }
+.hero h1 {
+  font-size: 44px;
+  line-height: 1.12;
+}
 
   .hero-description {
     font-size: 17px;
@@ -801,44 +805,34 @@ a {
   pointer-events: auto;
 }
 
-.image-modal img {
-  max-width: 88vw;
-  max-height: 86vh;
+.image-modal-slider {
+  width: 88vw;
+  height: 86vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-modal-track {
+  width: 300%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  transform: translateX(-33.3333%);
+  transition: transform 0.38s ease;
+}
+
+.image-modal-track.no-transition {
+  transition: none;
+}
+
+.image-modal-track img {
+  width: 33.3333%;
+  height: 100%;
   object-fit: contain;
   border-radius: 6px;
-
-  opacity: 0;
-  transform: translateX(0) scale(0.98);
-  transition: opacity 0.38s ease, transform 0.38s ease;
-}
-
-.image-modal.show img {
-  opacity: 1;
-  transform: translateX(0) scale(1);
-}
-
-/* 切到下一张：当前图向左滑走 */
-.image-modal img.slide-out-left {
-  opacity: 0;
-  transform: translateX(-55px) scale(0.98);
-}
-
-/* 切到上一张：当前图向右滑走 */
-.image-modal img.slide-out-right {
-  opacity: 0;
-  transform: translateX(55px) scale(0.98);
-}
-
-/* 下一张从右边滑进来 */
-.image-modal img.slide-in-right {
-  opacity: 0;
-  transform: translateX(55px) scale(0.98);
-}
-
-/* 上一张从左边滑进来 */
-.image-modal img.slide-in-left {
-  opacity: 0;
-  transform: translateX(-55px) scale(0.98);
+  flex-shrink: 0;
 }
 
 .image-modal-close {
@@ -932,10 +926,10 @@ a {
     right: 22px;
   }
 
-  .image-modal img {
-    max-width: 90vw;
-    max-height: 82vh;
-  }
+.image-modal-slider {
+  width: 90vw;
+  height: 82vh;
+}
 }
 
 /* 页面进入 / 页面跳转：缓慢显现 */
