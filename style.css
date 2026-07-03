@@ -99,9 +99,26 @@ a {
   transition: transform 0.3s ease;
 }
 
-.nav-link:hover::after,
 .nav-link.active::after {
   transform: scaleX(1);
+}
+
+/* 只有电脑鼠标悬停时，才显示 hover 下划线 */
+@media (hover: hover) and (pointer: fine) {
+  .nav-link:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+/* 手机端不保留 hover 下划线，只显示当前 active 的下划线 */
+@media (hover: none) {
+  .nav-link:hover::after {
+    transform: scaleX(0);
+  }
+
+  .nav-link.active::after {
+    transform: scaleX(1);
+  }
 }
 
 /* Hero */
@@ -603,7 +620,7 @@ a {
   display: grid;
   grid-template-columns: repeat(5, auto);
   justify-content: center;
-  gap: 12px 16px;
+  gap: 14px 18px;
   letter-spacing: 1.2px;
   font-size: 11px;
 }
@@ -613,7 +630,7 @@ a {
 }
 
 .nav-link:nth-child(7) {
-  grid-column: 4;
+  grid-column: 3;
 }
 
   .hero {
@@ -791,13 +808,37 @@ a {
   border-radius: 6px;
 
   opacity: 0;
-  transform: scale(0.98);
-  transition: opacity 0.45s ease, transform 0.45s ease;
+  transform: translateX(0) scale(0.98);
+  transition: opacity 0.38s ease, transform 0.38s ease;
 }
 
 .image-modal.show img {
   opacity: 1;
-  transform: scale(1);
+  transform: translateX(0) scale(1);
+}
+
+/* 切到下一张：当前图向左滑走 */
+.image-modal img.slide-out-left {
+  opacity: 0;
+  transform: translateX(-55px) scale(0.98);
+}
+
+/* 切到上一张：当前图向右滑走 */
+.image-modal img.slide-out-right {
+  opacity: 0;
+  transform: translateX(55px) scale(0.98);
+}
+
+/* 下一张从右边滑进来 */
+.image-modal img.slide-in-right {
+  opacity: 0;
+  transform: translateX(55px) scale(0.98);
+}
+
+/* 上一张从左边滑进来 */
+.image-modal img.slide-in-left {
+  opacity: 0;
+  transform: translateX(-55px) scale(0.98);
 }
 
 .image-modal-close {
