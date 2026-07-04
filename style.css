@@ -965,3 +965,25 @@ a {
     right: 22px;
   }
 }
+
+/* 只给手机端加页面缓慢显现动画，不影响电脑端 */
+@media (max-width: 600px) {
+  .page-fade {
+    opacity: 0;
+    transition: opacity 1.15s ease;
+  }
+
+  .page-fade.is-visible {
+    opacity: 1;
+  }
+
+  .page-fade.is-switching {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .page-fade.is-section-visible {
+    opacity: 1;
+    transition: opacity 0.85s ease;
+  }
+}
