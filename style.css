@@ -601,6 +601,11 @@ a {
     background: #f7f1ea;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+
+    transform: none;
+    backface-visibility: visible;
+    will-change: auto;
+    contain: paint;
   }
 
   .header-inner {
@@ -980,4 +985,11 @@ a {
 .page-fade.is-section-visible {
   opacity: 1;
   transition: opacity 1.4s ease;
+}
+
+/* 手机端点击图片时，去掉系统点击高亮，不影响图片 hover 效果 */
+.gallery img,
+.gallery-grid img,
+.moment-section .gallery-grid img {
+  -webkit-tap-highlight-color: transparent;
 }

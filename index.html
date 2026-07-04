@@ -572,14 +572,20 @@ document.addEventListener("DOMContentLoaded", function () {
 const sections = document.querySelectorAll("section[id]");
 const navLinks = document.querySelectorAll(".nav-link");
 
-function setActiveNavById(sectionId) {
-  navLinks.forEach((link) => {
-    link.classList.remove("active");
+let currentActiveNavId = "";
 
+function setActiveNavById(sectionId) {
+  if (currentActiveNavId === sectionId) return;
+
+  currentActiveNavId = sectionId;
+
+  navLinks.forEach((link) => {
     const href = link.getAttribute("href");
 
     if (href === "#" + sectionId) {
       link.classList.add("active");
+    } else {
+      link.classList.remove("active");
     }
   });
 }
