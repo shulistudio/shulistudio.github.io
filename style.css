@@ -970,7 +970,7 @@ a {
 @media (max-width: 600px) {
   .page-fade {
     opacity: 0;
-    transition: opacity 1.15s ease;
+    transition: opacity 1.2s ease;
   }
 
   .page-fade.is-visible {
