@@ -604,7 +604,19 @@ function updateActiveNav() {
   setActiveNavById(currentSection);
 }
 
-window.addEventListener("scroll", updateActiveNav);
+let navTicking = false;
+
+window.addEventListener("scroll", function () {
+  if (!navTicking) {
+    window.requestAnimationFrame(function () {
+      updateActiveNav();
+      navTicking = false;
+    });
+
+    navTicking = true;
+  }
+}, { passive: true });
+
 window.addEventListener("load", updateActiveNav);
 window.addEventListener("hashchange", updateActiveNav);
 </script>
