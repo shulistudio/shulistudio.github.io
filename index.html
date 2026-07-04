@@ -363,15 +363,36 @@
     });
   });
 
-  imageModalClose.addEventListener("click", closeImageModal);
-  prevButton.addEventListener("click", showPrevImage);
-  nextButton.addEventListener("click", showNextImage);
+imageModalClose.addEventListener("click", function (event) {
+  event.stopPropagation();
+  closeImageModal();
+});
 
-  imageModal.addEventListener("click", function (event) {
-    if (event.target === imageModal) {
-      closeImageModal();
-    }
-  });
+prevButton.addEventListener("click", function (event) {
+  event.stopPropagation();
+  showPrevImage();
+});
+
+nextButton.addEventListener("click", function (event) {
+  event.stopPropagation();
+  showNextImage();
+});
+
+imageModal.addEventListener("click", function (event) {
+  if (
+    event.target === imageModal ||
+    event.target.classList.contains("image-modal-slider") ||
+    event.target.classList.contains("image-modal-slide")
+  ) {
+    closeImageModal();
+  }
+});
+
+modalImageTrack.addEventListener("click", function (event) {
+  if (event.target.tagName.toLowerCase() === "img") {
+    event.stopPropagation();
+  }
+});
 
   document.addEventListener("keydown", function (event) {
     if (!imageModal.classList.contains("show")) return;
@@ -630,9 +651,23 @@ function closeWechat() {
 
 window.addEventListener("DOMContentLoaded", function () {
   const popup = document.getElementById("wechatPopup");
+  const popupContent = document.querySelector(".wechat-popup-content");
+
   if (popup) {
     popup.classList.remove("show");
     document.body.style.overflow = "";
+
+    popup.addEventListener("click", function (event) {
+      if (event.target === popup) {
+        closeWechat();
+      }
+    });
+  }
+
+  if (popupContent) {
+    popupContent.addEventListener("click", function (event) {
+      event.stopPropagation();
+    });
   }
 });
 
