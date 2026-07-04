@@ -12,16 +12,6 @@ html {
   scroll-behavior: auto;
 }
 
-#about {
-  scroll-margin-top: 150px;
-}
-
-#collection,
-#story,
-#contact {
-  scroll-margin-top: 30px;
-}
-
 body {
   font-family: Georgia, "Times New Roman", serif;
   background: #f7f1ea;
@@ -617,16 +607,6 @@ a {
     padding: 18px 20px;
   }
 
-#about {
-  scroll-margin-top: 170px;
-}
-
-#collection,
-#story,
-#contact {
-  scroll-margin-top: 70px;
-}
-
   .logo {
     width: 125px;
   }
@@ -807,7 +787,7 @@ a {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.72);
-  z-index: 9999;
+  z-index: 10000;
 
   opacity: 0;
   visibility: hidden;
@@ -889,7 +869,7 @@ a {
   justify-content: center;
 
   cursor: pointer;
-  z-index: 10000;
+  z-index: 10001;
   opacity: 0.9;
 }
 
@@ -927,7 +907,7 @@ a {
   justify-content: center;
 
   cursor: pointer;
-  z-index: 10000;
+  z-index: 10001;
   opacity: 0.88;
 
   transition: opacity 0.25s ease, background 0.25s ease;

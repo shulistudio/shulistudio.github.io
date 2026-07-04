@@ -522,12 +522,29 @@ requestAnimationFrame(function () {
   });
 
 document.addEventListener("DOMContentLoaded", function () {
-    if (pageFade) {
-      requestAnimationFrame(function () {
-        pageFade.classList.add("is-visible");
-      });
+  if (pageFade) {
+    requestAnimationFrame(function () {
+      pageFade.classList.add("is-visible");
+    });
+  }
+
+  if (window.location.hash) {
+    const targetSection = document.querySelector(window.location.hash);
+
+    if (targetSection) {
+      setTimeout(function () {
+        const targetY = getTargetY(targetSection);
+
+        window.scrollTo({
+          top: targetY,
+          behavior: "auto"
+        });
+
+        setActiveNavById(window.location.hash.replace("#", ""));
+      }, 80);
     }
-  });
+  }
+});
 </script>
 
 <script>
