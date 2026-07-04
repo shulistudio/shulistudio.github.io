@@ -49,7 +49,12 @@ a {
   position: sticky;
   top: 0;
   z-index: 100;
+
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .header-inner {
@@ -112,6 +117,10 @@ a {
 
 /* 手机端不保留 hover 下划线，只显示当前 active 的下划线 */
 @media (hover: none) {
+  .nav-link::after {
+    transition: none;
+  }
+
   .nav-link:hover::after {
     transform: scaleX(0);
   }
@@ -598,6 +607,12 @@ a {
 /* Mobile */
 
 @media (max-width: 600px) {
+  .site-header {
+    background: #f7f1ea;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
   .header-inner {
     padding: 18px 20px;
   }
@@ -966,24 +981,23 @@ a {
   }
 }
 
-/* 只给手机端加页面缓慢显现动画，不影响电脑端 */
-@media (max-width: 600px) {
-  .page-fade {
-    opacity: 0;
-    transition: opacity 1.15s ease;
-  }
+/* 全站页面缓慢显现：电脑端和手机端都生效 */
+.page-fade {
+  opacity: 0;
+  transition: opacity 1.8s ease;
+}
 
-  .page-fade.is-visible {
-    opacity: 1;
-  }
+.page-fade.is-visible {
+  opacity: 1;
+}
 
-  .page-fade.is-switching {
-    opacity: 0;
-    transition: opacity 0.5s ease;
-  }
+/* 首页内部点击 Home / About / Collection / Story / Contact 时用 */
+.page-fade.is-switching {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
 
-  .page-fade.is-section-visible {
-    opacity: 1;
-    transition: opacity 0.85s ease;
-  }
+.page-fade.is-section-visible {
+  opacity: 1;
+  transition: opacity 1.4s ease;
 }
