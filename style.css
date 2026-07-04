@@ -725,6 +725,11 @@ a {
     padding-top: 28px;
   }
 
+.story-cn.first-cn {
+  margin-top: 34px;
+  padding-top: 28px;
+}
+
 .contact-links {
   display: flex;
   flex-wrap: wrap;
