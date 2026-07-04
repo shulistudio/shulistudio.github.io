@@ -130,11 +130,15 @@
       </p>
 
       <p>
-        For me, each piece is more than just an object; it's a record of a handcrafted creative process. They embody my observations of the beauty of nature and everyday life, preserving subtle and unique traces of the handcrafting process.
+        The preciousness of handmade objects lies in the fact that they encapsulate a period of the creator's life.
       </p>
 
       <p>
-        Now, I hope to bring Shuli Studio to Auckland, marking a new phase for the brand. The pieces currently on display are the first batch of creations I sent from China to New Zealand. They are both a continuation of my past creative experiences and a starting point for a fresh start in this new environment.
+        For me, each piece is not just an object, but a record of a handcrafted creative process. They embody my observations of the beauty of nature and daily life, preserving subtle, unique, and irreplaceable traces of the crafting process.
+      </p>
+
+      <p>
+        Now, I hope to bring Shuli Studio to Auckland, marking a new phase for the brand. The works currently on display are some of my creations sent from China to New Zealand. They are both a continuation of my past creative experiences and a starting point for a fresh start in this new environment.
       </p>
 
       <p>
@@ -150,11 +154,15 @@
       </p>
 
       <p class="story-cn">
-        对我来说，每一件作品都不只是一个器物，而是一段手工创作过程的留下。它们承载着我对自然与日常生活美感的观察，也保留着手作过程中细微而独特的痕迹。
+手作器物的珍贵之处，在于它凝结了创作者生命中的一段时间。
+    </p>
+
+      <p class="story-cn">
+对我来说，每一件作品都不只是一个器物，而是一段手工创作过程的留存。它们承载着我对自然与日常生活美感的观察，也保留着手作过程中那些细微、独特而无法被完全复制的痕迹。
       </p>
 
       <p class="story-cn">
-        现在，我希望将 Shuli Studio 带到奥克兰，开启品牌新的阶段。目前展示的作品，是我从中国寄来新西兰的第一批创作。它们既是过去创作经历的延续，也是我在新环境中重新开始的起点。
+        现在，我希望将 Shuli Studio 带到奥克兰，开启品牌新的阶段。目前展示的作品，是我从中国寄来新西兰的部分创作。它们既是过去创作经历的延续，也是我在新环境中重新开始的起点。
       </p>
 
       <p class="story-cn">
@@ -599,6 +607,19 @@ function updateActiveNav() {
 window.addEventListener("scroll", updateActiveNav);
 window.addEventListener("load", updateActiveNav);
 window.addEventListener("hashchange", updateActiveNav);
+</script>
+
+<script>
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+
+  window.addEventListener("load", function () {
+    if (window.location.hash === "#home") {
+      window.scrollTo(0, 0);
+      history.replaceState(null, "", "index.html");
+    }
+  });
 </script>
 
 </body>
