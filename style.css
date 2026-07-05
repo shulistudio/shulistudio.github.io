@@ -85,7 +85,7 @@ a {
 
   transform: scaleX(0);
   transform-origin: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
 }
 
 .nav-link.active::after {
@@ -157,7 +157,7 @@ a {
   font-size: 13px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
 }
 
 .button:hover {
@@ -269,7 +269,7 @@ a {
   border-radius: 14px;
   background: #efe6dc;
   box-shadow: 0 14px 38px rgba(88, 65, 45, 0.12);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
   cursor: pointer;
 }
 
@@ -303,7 +303,7 @@ a {
   border-radius: 14px;
   background: #efe6dc;
   box-shadow: 0 14px 38px rgba(88, 65, 45, 0.12);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
   cursor: pointer;
 }
 
@@ -540,8 +540,8 @@ a {
 
 .hero {
   grid-template-columns: 1fr;
-  gap: 48px;
-  padding: 80px 44px 90px;
+  gap: 60px;
+  padding: 95px 44px 105px;
   justify-items: center;
   text-align: center;
 }
@@ -566,7 +566,9 @@ a {
 
   .about-section {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 46px;
+    padding-top: 120px;
+    padding-bottom: 120px;
   }
 
 .gallery {
@@ -590,8 +592,13 @@ a {
   border-radius: 8px;
 }
 
+ .story-section {
+    padding-top: 110px;
+    padding-bottom: 110px;
+  }
+
   .story-card {
-    padding: 54px 36px;
+    padding: 80px 42px;
   }
 
   .story-text p {
@@ -612,7 +619,16 @@ a {
 
 @media (max-width: 600px) {
 .site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   background: #f7f1ea;
+  z-index: 1000;
+}
+
+body {
+  padding-top: 125px;
 }
 
   .header-inner {
@@ -771,7 +787,7 @@ a {
   border-radius: 14px;
   background: #efe6dc;
   box-shadow: 0 14px 38px rgba(88, 65, 45, 0.12);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
   cursor: pointer;
 }
 
@@ -805,7 +821,7 @@ a {
   visibility: hidden;
   pointer-events: none;
 
-  transition: opacity 0.45s ease, visibility 0.45s ease;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 .image-modal.show {
@@ -922,7 +938,7 @@ a {
   z-index: 10001;
   opacity: 0.88;
 
-  transition: opacity 0.25s ease, background 0.25s ease;
+  transition: opacity 0.35s ease, background 0.35s ease;
 }
 
 .image-modal-arrow:hover {
