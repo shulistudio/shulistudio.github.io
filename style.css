@@ -566,9 +566,9 @@ a {
 
   .about-section {
     grid-template-columns: 1fr;
-    gap: 46px;
-    padding-top: 120px;
-    padding-bottom: 120px;
+    gap: 52px;
+    padding-top: 130px;
+    padding-bottom: 130px;
   }
 
 .gallery {
