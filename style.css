@@ -298,7 +298,9 @@ a {
 
 .gallery-grid img {
   width: 100%;
+  aspect-ratio: 1 / 1.15;
   height: auto;
+  object-fit: cover;
   display: block;
   border-radius: 14px;
   background: #efe6dc;
@@ -709,7 +711,9 @@ body {
 
 .gallery-grid img {
   width: 100%;
+  aspect-ratio: 1 / 1.15;
   height: auto;
+  object-fit: cover;
   border-radius: 8px;
 }
 
