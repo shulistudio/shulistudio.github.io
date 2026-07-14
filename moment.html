@@ -55,9 +55,9 @@
     <img src="image/moment-1.JPG" alt="Studio moment 1" decoding="async" />
     <img src="image/moment-2.JPG" alt="Studio moment 2" decoding="async" />
     <img src="image/moment-3.JPG" alt="Studio moment 3" decoding="async" />
-    <img src="image/moment-4.JPG" alt="Studio moment 4" decoding="async" />
-    <img src="image/moment-5.JPG" alt="Studio moment 5" decoding="async" />
-    <img src="image/moment-6.JPG" alt="Studio moment 6" decoding="async" />
+    <img src="image/moment-4.JPG" alt="Studio moment 4" loading="lazy" decoding="async" />
+    <img src="image/moment-5.JPG" alt="Studio moment 5" loading="lazy" decoding="async" />
+    <img src="image/moment-6.JPG" alt="Studio moment 6" loading="lazy" decoding="async" />
     <img src="image/moment-7.JPG" alt="Studio moment 7" loading="lazy" decoding="async" />
     <img src="image/moment-8.JPG" alt="Studio moment 8" loading="lazy" decoding="async" />
     <img src="image/moment-9.JPG" alt="Studio moment 9" loading="lazy" decoding="async" />
@@ -97,7 +97,7 @@
     ‹
   </button>
 
-  <div class="image-modal-slider" id="imageModalSlider">
+  <div class="image-modal-slider"
     <div class="image-modal-track" id="modalImageTrack"></div>
   </div>
 
@@ -136,9 +136,11 @@
       const slide = document.createElement("div");
       slide.className = "image-modal-slide";
 
-      const image = document.createElement("img");
-      image.src = item.src;
-      image.alt = item.alt;
+const image = document.createElement("img");
+image.src = item.src;
+image.alt = item.alt;
+image.loading = "lazy";
+image.decoding = "async";
 
       slide.appendChild(image);
       modalImageTrack.appendChild(slide);
