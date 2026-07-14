@@ -1025,5 +1025,34 @@ function copyWechat() {
   }
 }
 </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const pageFade = document.querySelector(".page-fade");
+
+    const crossPageLinks = document.querySelectorAll(
+      '.nav-link[href="havefun.html"], .nav-link[href="moment.html"]'
+    );
+
+    crossPageLinks.forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        const destination = link.getAttribute("href");
+
+        if (!destination || !pageFade) return;
+
+        event.preventDefault();
+
+        pageFade.classList.remove("is-visible");
+        pageFade.classList.remove("is-section-visible");
+        pageFade.classList.add("is-page-leaving");
+
+        setTimeout(function () {
+          window.location.href = destination;
+        }, 550);
+      });
+    });
+  });
+</script>
+
 </body>
 </html>

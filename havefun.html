@@ -52,9 +52,30 @@
 
     <section class="section havefun-section">
       <div class="gallery-grid">
-<img src="image/havefun-1.JPG" alt="HaveFun handmade piece 1" decoding="async" />
-<img src="image/havefun-2.JPG" alt="HaveFun handmade piece 2" decoding="async" />
-<img src="image/havefun-3.JPG" alt="HaveFun handmade piece 3" decoding="async" />
+<img
+  src="image/havefun-1.JPG"
+  alt="HaveFun handmade piece 1"
+  loading="eager"
+  fetchpriority="high"
+  decoding="async"
+/>
+
+<img
+  src="image/havefun-2.JPG"
+  alt="HaveFun handmade piece 2"
+  loading="eager"
+  fetchpriority="high"
+  decoding="async"
+/>
+
+<img
+  src="image/havefun-3.JPG"
+  alt="HaveFun handmade piece 3"
+  loading="eager"
+  fetchpriority="high"
+  decoding="async"
+/>
+
 <img src="image/havefun-4.JPG" alt="HaveFun handmade piece 4" loading="lazy" decoding="async" />
 <img src="image/havefun-5.JPG" alt="HaveFun handmade piece 5" loading="lazy" decoding="async" />
 <img src="image/havefun-6.JPG" alt="HaveFun handmade piece 6" loading="lazy" decoding="async" />
@@ -360,6 +381,39 @@ modalImageTrack.addEventListener("click", function (event) {
         pageFade.classList.add("is-visible");
       });
     }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const pageFade = document.querySelector(".page-fade");
+
+    const crossPageLinks = document.querySelectorAll(
+      '.nav-link[href^="index.html"], .nav-link[href="havefun.html"], .nav-link[href="moment.html"], .logo-link'
+    );
+
+    crossPageLinks.forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        const destination = link.getAttribute("href");
+
+        if (
+          !destination ||
+          !pageFade ||
+          link.classList.contains("active")
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+
+        pageFade.classList.remove("is-visible");
+        pageFade.classList.add("is-page-leaving");
+
+        setTimeout(function () {
+          window.location.href = destination;
+        }, 750);
+      });
+    });
   });
 </script>
 </body>
