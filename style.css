@@ -1129,7 +1129,7 @@ body {
 /* 全站页面缓慢显现：电脑端和手机端都生效 */
 .page-fade {
   opacity: 0;
-  transition: opacity 1.8s ease;
+  transition: opacity 1.2s ease;
 }
 
 .page-fade.is-visible {
@@ -1139,12 +1139,12 @@ body {
 /* 首页内部点击 Home / About / Collection / Story / Contact 时用 */
 .page-fade.is-switching {
   opacity: 0;
-  transition: opacity 1s ease;
+  transition: opacity 0.75s ease;
 }
 
 .page-fade.is-section-visible {
   opacity: 1;
-  transition: opacity 1.4s ease;
+  transition: opacity 1.1s ease;
 }
 
 /* 手机端点击图片时，去掉系统点击高亮，不影响图片 hover 效果 */
