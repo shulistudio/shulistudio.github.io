@@ -896,13 +896,13 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
+  gap: 8px 10px;
 }
 
 .contact-links a,
 .contact-button {
   width: 118px;
-  height: 58px;
+  height: 50px;
   padding: 0;
   display: flex;
   align-items: center;
@@ -913,8 +913,12 @@ body {
 }
 
 .contact-section {
-  padding-top: 82px;
-  padding-bottom: 42px;
+  padding-top: 65px;
+  padding-bottom: 24px;
+}
+
+.contact-section .section-heading {
+  margin-bottom: 34px;
 }
 
 .wechat-qr {
@@ -1370,17 +1374,17 @@ align-items: center;
 
 @media (max-width: 600px) {
 .enquiry-section {
-  padding: 24px 20px 70px;
+  padding:16px 20px 45px;
 }
 
 .enquiry-inner {
-  gap: 34px;
-  padding: 42px 24px;
+  gap: 26px;
+  padding: 32px 24px;
   border-radius: 20px;
 }
 
   .enquiry-heading h2 {
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     font-size: 35px;
     line-height: 1.08;
   }
@@ -1389,35 +1393,44 @@ align-items: center;
     font-size: 15px;
   }
 
+  .enquiry-heading::after {
+    margin-top: 18px;
+  }
+
   .enquiry-row {
     grid-template-columns: 1fr;
     gap: 0;
   }
 
   .form-field {
-    margin-bottom: 23px;
+    margin-bottom: 18px;
+  }
+
+  .form-field-message {
+    margin-bottom: 14px;
   }
 
   .form-field input {
-    height: 44px;
+    height: 40px;
     font-size: 15px;
   }
 
 .form-field textarea {
-  height: 44px;
-  min-height: 44px;
+  height: 40px;
+  min-height: 40px;
+  padding: 8px 2px;
   font-size: 15px;
 }
 
   .enquiry-submit-row {
     align-items: stretch;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
   }
 
   .enquiry-submit-row button {
     width: 100%;
     min-width: 0;
-    height: 50px;
+    height: 46px;
   }
 }
